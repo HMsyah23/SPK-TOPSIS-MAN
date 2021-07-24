@@ -14,7 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('cover/bootstrap.min.css')}}" rel="stylesheet">
-
+  
     <!-- Custom styles for this template -->
     <link href="{{asset('cover/cover.css')}}" rel="stylesheet">
   </head>
@@ -34,18 +34,46 @@
       </header>
 
       <main role="main" class="inner cover">
-        <img src="{{asset('images/logo.png')}}" alt="" style="width:50%;">
+        <img src="{{asset('images/logo.png')}}" alt="" style="width:25%;">
         <h1 class="cover-heading">Selamat Datang</h1>
-        <p class="lead">Di Website Penentuan Penerimaan Bantuan COVID-19 <br> Kelurahan Gunung Tabur BERAU</p>
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show alert" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-              {!! Session::get('error') !!}
-            </div>
-          @endif
-        <small for="">Silahkan Masukkan NIK atau No KK untuk memeriksa apakah anda termasuk sebagai penerima bantuan</small>
+        <p class="lead">Penentuan Penerimaan Bantuan COVID-19 <br> Kelurahan Gunung Tabur BERAU</p>
+        <div class=" rounded bg-light text-dark pt-3 pb-3 pl-2 pr-3">
+          <h4 ><u>Informasi Bagi Penerima Bantuan</u></h4>
+          <ol class="text-left">
+            <li>Calon penerima adalah masyarakat yang masuk dalam pendataan RT/RW dan berada di kelurahangunung tabur.</li>
+            <li>Keluarga miskin atau tidak mampu yang berdomisili kelurahan di bersangkutan</li>
+            <li>Tidak termasuk dalam penerima Program Keluarga Harapan (PKH), Kartu Sembako, Kartu Pra Kerja, Bantuan Sosial Tunai (BST) dan bansos pemerintah lainnya</li>
+            <li>Memiliki Nomor Induk Kependudukan (NIK).</li>
+            <li>Jika penerima bantuan adalah petani maka Dana Kelurahan dapat digunakan untuk membeli pupuk.</li>
+            <li>Jika penerima sudah terdaftar dan valid maka BLT akan diberikan melalui tunai dan non-tunai. Non-tunai diberikan melalui transfer ke rekening bank penerima dan tunai boleh menghubungi aparat kelurahan.</li>
+          </ol>
+        </div>
+        <label class="h4">Ranking</label>
+        <div class="d-flex justify-content-center">
+          <table class="table table-hover table-bordered text-nowrap" id="datatable">
+            <thead class="bg-success">
+              <tr>
+                <th>NIK</th>
+                <th>No.KTP</th>
+                <th>Nama </th>
+                <th>Alamat</th>
+                <th>Ranking</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($rank as $item)
+              <tr>
+                <td><b>{{$item['no_ktp']}}</b></td>
+                <td><b>{{$item['nik']}}</b></td>
+                <td><b>{{$item['nama']}}</b></td>
+                <td><b>{{$item['alamat']}}</b></td>
+                <td>{{$loop->iteration}}</td>
+              </tr> 
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+            <small for="">Silahkan Masukkan NIK atau No KK untuk memeriksa apakah anda termasuk sebagai penerima bantuan</small>
         <form action="{{ route('cekStatus') }}"  method="POST" enctype="multipart/form-data">
             @csrf
         <div class="input-group mb-3">

@@ -14,8 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('home');
+})->name('awal');
+
+
+Route::get('/login', function () {
     return view('auth.login');
 });
+
+Route::post('/cek', 'KriteriaController@cek')->name('cekStatus');
+Route::get('/cek/{id}', 'KriteriaController@ketemu')->name('ketemu');
+
 
 Route::get('/pelamar/register', 'PelamarController@daftar')->name('pelamar.daftar');
 Route::post('/pelamar/register', 'PelamarController@kirim')->name('pelamar.kirim');

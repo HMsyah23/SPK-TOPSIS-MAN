@@ -113,14 +113,14 @@ class HomeController extends Controller
 
         foreach ($data as $key => $s) {
             
-            $data[$key]['A_max'] = sqrt(pow(($bobot['perbaikan']['C1']['max'] - floatval($data[$key]['C1'])),2)
-                                                    + pow(($bobot['perbaikan']['C2']['min'] - floatval($data[$key]['C2'])),2) 
+            $data[$key]['A_max'] = sqrt(pow(($bobot['perbaikan']['C1']['min'] - floatval($data[$key]['C1'])),2)
+                                                    + pow(($bobot['perbaikan']['C2']['max'] - floatval($data[$key]['C2'])),2) 
                                                     + pow(($bobot['perbaikan']['C3']['max'] - floatval($data[$key]['C3'])),2)
-                                                    + pow(($bobot['perbaikan']['C4']['max'] - floatval($data[$key]['C4'])),2));
-            $data[$key]['A_min'] = sqrt(pow((floatval($data[$key]['C1']) - $bobot['perbaikan']['C1']['min']),2)
-                                                    + pow((floatval($data[$key]['C2']) - $bobot['perbaikan']['C2']['max']),2) 
+                                                    + pow(($bobot['perbaikan']['C4']['min'] - floatval($data[$key]['C4'])),2));
+            $data[$key]['A_min'] = sqrt(pow((floatval($data[$key]['C1']) - $bobot['perbaikan']['C1']['max']),2)
+                                                    + pow((floatval($data[$key]['C2']) - $bobot['perbaikan']['C2']['min']),2) 
                                                     + pow((floatval($data[$key]['C3']) - $bobot['perbaikan']['C3']['min']),2)
-                                                    + pow((floatval($data[$key]['C4']) - $bobot['perbaikan']['C4']['min']),2));
+                                                    + pow((floatval($data[$key]['C4']) - $bobot['perbaikan']['C4']['max']),2));
             if ($data[$key]['A_min'] == 0 && $data[$key]['A_max'] == 0) {
                 $data[$key]['preferensi'] = 0;
                 Session::flash('sama', "Perhitungan TOPSIS Berjalan Tidak Wajar Karena Seluruh Variabel Memiliki Data Yang Sama");
@@ -224,4 +224,5 @@ class HomeController extends Controller
 
         return view('topsis.detail',compact('data','bobot','kriterias','rank','subkriterias'));
     }
+
 }
